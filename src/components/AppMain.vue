@@ -24,8 +24,8 @@ export default {
             <div v-else>
                 <div class="alert alert-dark" role="alert">Found {{ store.cards.length }} cards</div>
 
-                <div class="row row-cols-5">
-                    <div class="col mb-4" v-for="item in store.cards" :key="item.id">
+                <div class="row row-cols-5 row-gap-4">
+                    <div class="col" v-for="item in store.cards" :key="item.id">
                         <AppCard :card="item" />
                     </div>
                 </div>
