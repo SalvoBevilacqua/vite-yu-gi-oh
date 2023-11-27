@@ -1,8 +1,13 @@
 <script>
 import axios from "axios";
 import AppHeader from "./components/AppHeader.vue";
+import AppMain from "./components/AppMain.vue";
 
 export default {
+  components: {
+    AppHeader,
+    AppMain
+  },
   data() {
     return {
       list: []
@@ -18,8 +23,8 @@ export default {
 </script>
 
 <template>
-  <h1 class="text-center">prova</h1>
-  <!-- <AppHeader /> -->
+  <AppHeader />
+  <AppMain />
 </template>
 
 <style lang="scss">
