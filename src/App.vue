@@ -16,7 +16,12 @@ export default {
   },
   created() {
     this.store.flagLoading = true;
-    axios.get(this.store.apiUrl).then((resp) => {
+    axios.get(this.store.apiUrl, {
+      params: {
+        num: 20,
+        offset: 20
+      }
+    }).then((resp) => {
       this.store.cards = resp.data.data;
       this.store.flagLoading = false;
     })

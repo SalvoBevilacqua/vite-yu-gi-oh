@@ -2,6 +2,8 @@
 import { store } from "../store.js";
 import AppCard from "./AppCard.vue";
 import AppLoader from "./AppLoader.vue";
+import AppSearch from "./AppSearch.vue";
+import axios from "axios";
 
 export default {
     data() {
@@ -12,6 +14,34 @@ export default {
     components: {
         AppCard,
         AppLoader,
+        AppSearch
+    },
+    methods: {
+        search() {
+            this.store.flagLoading = true;
+            axios.get(this.store.apiUrl, {
+                params: {
+                    archetype: this.store.stringToSearch,
+                    num: 20,
+                    offset: 20
+                }
+            }).then((resp) => {
+                this.store.cards = resp.data.data;
+                this.store.flagLoading = false;
+            })
+        },
+        allTheCard() {
+            this.store.flagLoading = true;
+            axios.get(this.store.apiUrl, {
+                params: {
+                    num: 20,
+                    offset: 20
+                }
+            }).then((resp) => {
+                this.store.cards = resp.data.data;
+                this.store.flagLoading = false;
+            })
+        }
     }
 }
 </script>
@@ -22,7 +52,10 @@ export default {
             <AppLoader v-if="store.flagLoading" />
 
             <div v-else>
-                <div class="alert alert-dark" role="alert">Found {{ store.cards.length }} cards</div>
+                <div class="d-flex justify-content-between">
+                    <div class="alert alert-dark w-25" role="alert">Found {{ store.cards.length }} cards</div>
+                    <AppSearch @search="search" @reset="allTheCard" />
+                </div>
 
                 <div class="row row-cols-5 row-gap-4">
                     <div class="col" v-for="item in store.cards" :key="item.id">
