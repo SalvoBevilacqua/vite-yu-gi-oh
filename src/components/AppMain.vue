@@ -28,7 +28,8 @@ export default {
             }).then((resp) => {
                 this.store.cards = resp.data.data;
                 this.store.flagLoading = false;
-            })
+            });
+            console.log(this.store.stringToSearch);
         },
         allTheCard() {
             this.store.flagLoading = true;
@@ -40,7 +41,8 @@ export default {
             }).then((resp) => {
                 this.store.cards = resp.data.data;
                 this.store.flagLoading = false;
-            })
+            });
+            this.store.stringToSearch = "";
         }
     }
 }
